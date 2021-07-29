@@ -1,4 +1,4 @@
-from asyncio import events
+import sys
 import threading
 
 import colorama
@@ -6,9 +6,6 @@ from log import *
 import utils
 from time import sleep
 import json
-import asyncio
-import math
-from tkinter import *
 
 import nextion
 from data import hardware
@@ -64,10 +61,28 @@ detect_sensors()
 
 # Init display
 info("Connecting to nextion display (%s)" % config["serialPort"])
-display = nextion.NextionDisplay(config["serialPort"], 9600)
-info("Connected to nextion display")
+try:
+    display = nextion.NextionDisplay(config["serialPort"], 115200)
+    info("Connected to nextion display")
+except:
+    error("Could not connect to display")
+    sys.exit()
+
+display.reset()
+display.write("sleep=0")
 
 while True:
-    sleep(config["updateInterval"])
-    temp = hardware.get_cpu_temperature()
-    info("CPU Temp: %s" % temp)
+    try:
+        sleep(config["updateInterval"])
+        temp = hardware.get_cpu_temperature()
+        info("CPU Temp: %s" % temp)
+        display.write('t0.txt="%s"' % (str(temp)))
+        display.handle_events()
+    except KeyboardInterrupt:
+        if watchdog:
+            info("Stopping watchdog")
+            watchdog.stop()
+
+        info("Sending display to sleep mode")
+        display.write("sleep=1")
+        sys.exit()

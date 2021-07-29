@@ -1,5 +1,5 @@
 {
-    "serialPort": "COM1",
+    "serialPort": "/dev/ttyUSB1",
     "weatherLocation": "Amberg",
     "updateInterval": 2
 }
