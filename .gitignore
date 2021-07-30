@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Spotipy cache 
+.cache*
+
+# Config file
+.config.json

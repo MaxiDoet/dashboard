@@ -1,5 +1,16 @@
 {
-    "serialPort": "/dev/ttyUSB1",
-    "weatherLocation": "Amberg",
-    "updateInterval": 2
+    "serialPort": "/dev/ttyUSB0",
+    "updateInterval": 2,
+    "features": {
+        "spotify": {
+            "enabled": true,
+            "client_id": "fcfe2438298d41b0a1004b299f879f44",
+            "client_secret": "e1750c1ea84c41bb9daeb948f6eac2ea"
+        },
+        "weather": {
+            "enabled": false,
+            "location": "Amberg",
+            "api_key": ""
+        }
+    }
 }
